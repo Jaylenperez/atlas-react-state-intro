@@ -90,7 +90,14 @@ atlas-react-state-intro/
 - `npm run lint`: Run the lint checker with eslint to check for known linting issues
 - `npm run format`: Run prettier to automatically reformat files.
 
-## :camera: <span id="photos">Photos</span>
+## :camera: <span id="features">Features</span>
+
+**Task 2: Filtering**
+
+- Table is searchable using the search field
+- Table filters by the Course Number and Course Name column values
+- Search is case insensitive
+- Filtering updates as the user types and does not require user to press enter.
 
 ## :sparkles: <span id="authors">Authors</span>
 
