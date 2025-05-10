@@ -93,7 +93,9 @@ atlas-react-state-intro/
 ## :camera: <span id="features">Features</span>
 
 **Task 2: Filtering**
-https://github.com/user-attachments/assets/557443ed-d5cd-479d-b836-581ff1bb5326
+
+![ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/b3d6d3d9-aa79-4095-a512-fdca6f1766e3)
+
 
 - Table is searchable using the search field
 - Table filters by the Course Number and Course Name column values
