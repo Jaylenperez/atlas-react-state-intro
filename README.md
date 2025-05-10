@@ -96,7 +96,6 @@ atlas-react-state-intro/
 
 ![ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/b3d6d3d9-aa79-4095-a512-fdca6f1766e3)
 
-
 - Table is searchable using the search field
 - Table filters by the Course Number and Course Name column values
 - Search is case insensitive
@@ -106,12 +105,21 @@ atlas-react-state-intro/
 
 ![ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/e9aa4d4e-4ed2-4ae0-bff2-8481eb1f2b53)
 
-
 - Trimester column can be sorted in ascending and descending order
 - Course Number column can be sorted in ascending and descending order
 - Course Name column can be sorted in ascending and descending order
 - Semester Credits column can be sorted in ascending and descending order
 - Total Clock Hours column can be sorted in ascending and descending order
+
+**Task 4: Pagination**
+
+![ezgif com-video-to-gif-converter (2)](https://github.com/user-attachments/assets/2fdc5020-4e2c-487b-8a3c-ab6d291994e9)
+
+- Table shows 5 rows of data at a time
+- Clicking the Next button should change the table to show the next 5 results.
+- Clicking the Previous button should change the table to show the previous 5 results.
+- The previous button is disabled on the first page.
+- The next button is disabled on the last page.
 
 ## :sparkles: <span id="authors">Authors</span>
 
