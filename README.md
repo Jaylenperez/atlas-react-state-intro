@@ -102,6 +102,17 @@ atlas-react-state-intro/
 - Search is case insensitive
 - Filtering updates as the user types and does not require user to press enter.
 
+**Task 3: Sorting**
+
+![ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/e9aa4d4e-4ed2-4ae0-bff2-8481eb1f2b53)
+
+
+- Trimester column can be sorted in ascending and descending order
+- Course Number column can be sorted in ascending and descending order
+- Course Name column can be sorted in ascending and descending order
+- Semester Credits column can be sorted in ascending and descending order
+- Total Clock Hours column can be sorted in ascending and descending order
+
 ## :sparkles: <span id="authors">Authors</span>
 
 **Jaylen Perez**
