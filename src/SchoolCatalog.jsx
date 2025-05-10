@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 export default function SchoolCatalog() {
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortColumn, setSortColumn] = useState(null);
+  const [sortDirection, setSortDirection] = useState("asc");
 
   useEffect(() => {
     fetch("/api/courses.json")
@@ -12,12 +14,43 @@ export default function SchoolCatalog() {
   }, []);
 
   // Filter courses based on search term
-  const filteredCourses = courses.filter(
-    (course) =>
-      course.courseName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.courseNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.trimester.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCourses = courses.filter((course) =>
+    Object.values(course).some((value) =>
+      value.toLowerCase().includes(searchTerm.toLowerCase())
+    )
   );
+
+  // Sort courses if a column is selected
+  const sortedCourses = [...filteredCourses].sort((a, b) => {
+    if (!sortColumn) return 0;
+
+    const valA = a[sortColumn];
+    const valB = b[sortColumn];
+
+    if (!isNaN(valA) && !isNaN(valB)) {
+      return sortDirection === "asc"
+        ? Number(valA) - Number(valB)
+        : Number(valB) - Number(valA);
+    }
+
+    return sortDirection === "asc"
+      ? valA.localeCompare(valB)
+      : valB.localeCompare(valA);
+  });
+
+  const handleSort = (column) => {
+    if (sortColumn === column) {
+      setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));
+    } else {
+      setSortColumn(column);
+      setSortDirection("asc");
+    }
+  };
+
+  const getSortIndicator = (column) => {
+    if (sortColumn !== column) return "";
+    return sortDirection === "asc" ? " 🔼" : " 🔽";
+  };
 
   return (
     <div className="school-catalog">
@@ -26,21 +59,31 @@ export default function SchoolCatalog() {
         type="text"
         placeholder="Search"
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)} // Update search term on change
+        onChange={(e) => setSearchTerm(e.target.value)}
       />
       <table>
         <thead>
           <tr>
-            <th>Trimester</th>
-            <th>Course Number</th>
-            <th>Courses Name</th>
-            <th>Semester Credits</th>
-            <th>Total Clock Hours</th>
+            <th onClick={() => handleSort("trimester")}>
+              Trimester{getSortIndicator("trimester")}
+            </th>
+            <th onClick={() => handleSort("courseNumber")}>
+              Course Number{getSortIndicator("courseNumber")}
+            </th>
+            <th onClick={() => handleSort("courseName")}>
+              Course Name{getSortIndicator("courseName")}
+            </th>
+            <th onClick={() => handleSort("semesterCredits")}>
+              Semester Credits{getSortIndicator("semesterCredits")}
+            </th>
+            <th onClick={() => handleSort("totalClockHours")}>
+              Total Clock Hours{getSortIndicator("totalClockHours")}
+            </th>
             <th>Enroll</th>
           </tr>
         </thead>
         <tbody>
-          {filteredCourses.map((course, index) => (
+          {sortedCourses.map((course, index) => (
             <tr key={index}>
               <td>{course.trimester}</td>
               <td>{course.courseNumber}</td>
