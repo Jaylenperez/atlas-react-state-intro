@@ -4,7 +4,7 @@ import { useCourseContext } from "./CourseContext";
 const COURSES_PER_PAGE = 5;
 
 export default function SchoolCatalog() {
-  const { enrollCourse } = useCourseContext(); // Assuming you have this context for enrolling courses
+  const { enrollCourse } = useCourseContext();
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortColumn, setSortColumn] = useState(null);
@@ -12,7 +12,7 @@ export default function SchoolCatalog() {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    fetch("/api/courses.json") // Correct URL for public folder
+    fetch("/api/courses.json")
       .then((response) => response.json())
       .then((data) => setCourses(data))
       .catch((error) => console.error("Error fetching courses:", error));
