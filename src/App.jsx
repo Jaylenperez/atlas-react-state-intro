@@ -1,13 +1,33 @@
+import { CourseProvider, useCourseContext } from "./CourseContext";
 import SchoolCatalog from "./SchoolCatalog";
-import Header from "./Header";
 import ClassSchedule from "./ClassSchedule";
 
-export default function App() {
+function Header() {
+  const { enrolledCourses } = useCourseContext();
   return (
-    <div>
+    <header>
+      <h1>Course Enrollment</h1>
+      <p>Courses Enrolled: {enrolledCourses.length}</p>
+    </header>
+  );
+}
+
+function AppContent() {
+  return (
+    <>
       <Header />
       <SchoolCatalog />
       <ClassSchedule />
-    </div>
+    </>
   );
 }
+
+function App() {
+  return (
+    <CourseProvider>
+      <AppContent />
+    </CourseProvider>
+  );
+}
+
+export default App;

@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 import { useCourseContext } from "./CourseContext";
 
+const COURSES_PER_PAGE = 5;
+
 export default function SchoolCatalog() {
+  const { enrollCourse } = useCourseContext(); // Assuming you have this context for enrolling courses
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortColumn, setSortColumn] = useState(null);
   const [sortDirection, setSortDirection] = useState("asc");
-  const [currentPage, setCurrentPage] = useState(0); // 👈 track page index
-
-  const { enrolledCourses, enrollCourse } = useCourseContext();
-  const rowsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    fetch("/api/courses.json")
+    fetch("/api/courses.json") // Correct URL for public folder
       .then((response) => response.json())
       .then((data) => setCourses(data))
       .catch((error) => console.error("Error fetching courses:", error));
@@ -20,7 +20,7 @@ export default function SchoolCatalog() {
 
   const filteredCourses = courses.filter((course) =>
     Object.values(course).some((value) =>
-      String(value).toLowerCase().includes(searchTerm.toLowerCase())
+      value.toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
 
@@ -37,17 +37,9 @@ export default function SchoolCatalog() {
     }
 
     return sortDirection === "asc"
-      ? String(valA).localeCompare(String(valB))
-      : String(valB).localeCompare(String(valA));
+      ? valA.localeCompare(valB)
+      : valB.localeCompare(valA);
   });
-
-  // ✅ Calculate paginated slice
-  const totalPages = Math.ceil(sortedCourses.length / rowsPerPage);
-  const startIndex = currentPage * rowsPerPage;
-  const paginatedCourses = sortedCourses.slice(
-    startIndex,
-    startIndex + rowsPerPage
-  );
 
   const handleSort = (column) => {
     if (sortColumn === column) {
@@ -56,7 +48,6 @@ export default function SchoolCatalog() {
       setSortColumn(column);
       setSortDirection("asc");
     }
-    setCurrentPage(0); // reset to first page on sort
   };
 
   const getSortIndicator = (column) => {
@@ -64,13 +55,23 @@ export default function SchoolCatalog() {
     return sortDirection === "asc" ? " 🔼" : " 🔽";
   };
 
-  const handleNext = () => {
-    if (currentPage < totalPages - 1) setCurrentPage((prev) => prev + 1);
+  // Pagination logic
+  const startIndex = (currentPage - 1) * COURSES_PER_PAGE;
+  const paginatedCourses = sortedCourses.slice(
+    startIndex,
+    startIndex + COURSES_PER_PAGE
+  );
+
+  const handleNextPage = () => {
+    setCurrentPage((prev) => prev + 1);
   };
 
-  const handlePrevious = () => {
-    if (currentPage > 0) setCurrentPage((prev) => prev - 1);
+  const handlePreviousPage = () => {
+    setCurrentPage((prev) => prev - 1);
   };
+
+  const isNextDisabled = currentPage * COURSES_PER_PAGE >= sortedCourses.length;
+  const isPreviousDisabled = currentPage === 1;
 
   return (
     <div className="school-catalog">
@@ -79,10 +80,7 @@ export default function SchoolCatalog() {
         type="text"
         placeholder="Search"
         value={searchTerm}
-        onChange={(e) => {
-          setSearchTerm(e.target.value);
-          setCurrentPage(0); // reset to first page on search
-        }}
+        onChange={(e) => setSearchTerm(e.target.value)}
       />
       <table>
         <thead>
@@ -106,38 +104,25 @@ export default function SchoolCatalog() {
           </tr>
         </thead>
         <tbody>
-          {paginatedCourses.map((course, index) => {
-            const isEnrolled = enrolledCourses.some(
-              (c) => c.courseNumber === course.courseNumber
-            );
-            return (
-              <tr key={index}>
-                <td>{course.trimester}</td>
-                <td>{course.courseNumber}</td>
-                <td>{course.courseName}</td>
-                <td>{course.semesterCredits}</td>
-                <td>{course.totalClockHours}</td>
-                <td>
-                  <button
-                    onClick={() => enrollCourse(course)}
-                    disabled={isEnrolled}
-                  >
-                    {isEnrolled ? "Enrolled" : "Enroll"}
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
+          {paginatedCourses.map((course, index) => (
+            <tr key={index}>
+              <td>{course.trimester}</td>
+              <td>{course.courseNumber}</td>
+              <td>{course.courseName}</td>
+              <td>{course.semesterCredits}</td>
+              <td>{course.totalClockHours}</td>
+              <td>
+                <button onClick={() => enrollCourse(course)}>Enroll</button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <div className="pagination">
-        <button onClick={handlePrevious} disabled={currentPage === 0}>
+        <button onClick={handlePreviousPage} disabled={isPreviousDisabled}>
           Previous
         </button>
-        <span>
-          Page {currentPage + 1} of {totalPages}
-        </span>
-        <button onClick={handleNext} disabled={currentPage >= totalPages - 1}>
+        <button onClick={handleNextPage} disabled={isNextDisabled}>
           Next
         </button>
       </div>

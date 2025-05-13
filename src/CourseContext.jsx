@@ -2,18 +2,12 @@ import { createContext, useContext, useState } from "react";
 
 const CourseContext = createContext();
 
-export function useCourseContext() {
-  return useContext(CourseContext);
-}
-
-export function CourseProvider({ children }) {
+export const CourseProvider = ({ children }) => {
   const [enrolledCourses, setEnrolledCourses] = useState([]);
 
   const enrollCourse = (course) => {
     setEnrolledCourses((prev) => {
-      if (prev.some((c) => c.courseNumber === course.courseNumber)) {
-        return prev;
-      }
+      if (prev.some((c) => c.courseNumber === course.courseNumber)) return prev;
       return [...prev, course];
     });
   };
@@ -31,4 +25,6 @@ export function CourseProvider({ children }) {
       {children}
     </CourseContext.Provider>
   );
-}
+};
+
+export const useCourseContext = () => useContext(CourseContext);
