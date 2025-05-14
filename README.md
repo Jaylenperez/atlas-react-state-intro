@@ -18,8 +18,6 @@
         <br>
         :mega: <a href="#commands">Important Commands</a>
         <br>
-        :camera: <a href="#photos">Photos</a>
-        <br>
         :sparkles: <a href="#authors">Authors</a>
 </details>
 
@@ -56,24 +54,21 @@ By the end, you’ll understand how to use the core React hooks—`useState`, `u
 atlas-react-state-intro/
 ├── public/
 │   ├── favicon.svg
-│   ├── index.html
 │   └── api/
 │       └── courses.json
 ├── src/
-│   ├── components/
-│   │   ├── SearchBar.jsx
-│   │   ├── CourseTable.jsx
-│   │   ├── Pagination.jsx
-│   │   └── EnrollButton.jsx
 │   ├── context/
 │   │   └── CourseContext.jsx
 │   ├── App.jsx
+│   ├── ClassSchedule.jsx
+│   ├── Header.jsx
 │   ├── SchoolCatalog.jsx
 │   ├── main.jsx
 │   └── index.css
 ├── .gitignore
 ├── package.json
 ├── vite.config.js
+├── index.html
 └── README.md
 ```
 
@@ -90,36 +85,6 @@ atlas-react-state-intro/
 - `npm run lint`: Run the lint checker with eslint to check for known linting issues
 - `npm run format`: Run prettier to automatically reformat files.
 
-## :camera: <span id="features">Features</span>
-
-**Task 2: Filtering**
-
-![ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/b3d6d3d9-aa79-4095-a512-fdca6f1766e3)
-
-- Table is searchable using the search field
-- Table filters by the Course Number and Course Name column values
-- Search is case insensitive
-- Filtering updates as the user types and does not require user to press enter.
-
-**Task 3: Sorting**
-
-![ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/e9aa4d4e-4ed2-4ae0-bff2-8481eb1f2b53)
-
-- Trimester column can be sorted in ascending and descending order
-- Course Number column can be sorted in ascending and descending order
-- Course Name column can be sorted in ascending and descending order
-- Semester Credits column can be sorted in ascending and descending order
-- Total Clock Hours column can be sorted in ascending and descending order
-
-**Task 4: Pagination**
-
-![ezgif com-video-to-gif-converter (2)](https://github.com/user-attachments/assets/2fdc5020-4e2c-487b-8a3c-ab6d291994e9)
-
-- Table shows 5 rows of data at a time
-- Clicking the Next button should change the table to show the next 5 results.
-- Clicking the Previous button should change the table to show the previous 5 results.
-- The previous button is disabled on the first page.
-- The next button is disabled on the last page.
 
 ## :sparkles: <span id="authors">Authors</span>
 
