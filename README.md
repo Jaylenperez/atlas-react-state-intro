@@ -1,6 +1,6 @@
 # <p align="center">React State Introduction</p>
 
-[Link to site on Netify]()
+[Link to site on Netify](https://atlas-react-state-intro-j-perez.netlify.app/)
 
 ## :bookmark: Table of Contents
 
@@ -84,7 +84,6 @@ atlas-react-state-intro/
 - `npm run dev`: Starts dev server with Hot Module Reloading on port 5173. Anytime a file changes, the changes will automatocally be reflected in the browser
 - `npm run lint`: Run the lint checker with eslint to check for known linting issues
 - `npm run format`: Run prettier to automatically reformat files.
-
 
 ## :sparkles: <span id="authors">Authors</span>
 
